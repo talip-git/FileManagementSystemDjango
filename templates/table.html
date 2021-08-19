@@ -1,0 +1,24 @@
+{% extends 'home.html' %}
+{% block table %}
+<div class="document-table">
+    <button class="btn-document"><a href="/addDocument">Yeni Döküman</a></button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sürüm</th>
+          <th scope="col">Tarih</th>
+          <th scope="col">Durum</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for document in documents %}
+          <tr>
+            <td>{{document.version}}</td>
+            <td>{{document.change_date}}</td>
+            <td>{{document.status}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock table %}

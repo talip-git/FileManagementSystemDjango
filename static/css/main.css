@@ -1,0 +1,56 @@
+.document-table{
+    width: 30%;
+    position: absolute;
+    right: 50%;
+    left: 37%;
+    top: 10%;
+    border: 1px solid none;
+    padding: 20px;
+}
+.table{
+    background-color: rgb(224, 224, 224);
+    border-radius: 20px;
+    padding: 100px;
+}
+.document-table tr{
+    padding: 10px;
+}
+.btn-document{
+    border: none;
+    padding: 10px;
+    color:white;
+    background-color: rgb(14, 13, 13);
+    border-radius: 5px;
+    transition: 0.4s;
+    margin-bottom: 20px;
+    transition-timing-function: ease;
+}
+.btn-document a{
+    color: white;
+}
+.btn-document:hover{
+    background-color: rgb(64, 178, 182);
+}
+.add-form{
+    width: 50%;
+    position: absolute;
+    right: 50%;
+    left: 25%;
+    top: 10%;
+    border: 1px solid none;
+    padding: 20px;
+    margin: 20px;
+}
+.btn-addoc{
+    border: none;
+    padding: 10px;
+    color:white;
+    background-color: rgb(14, 13, 13);
+    border-radius: 5px;
+    transition: 0.4s;
+    margin-top: 20px;
+    transition-timing-function: ease;
+}
+.btn-addoc:hover{
+    background-color: rgb(64, 178, 182);
+}

@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block main %}
+    <div>
+        <form action="/addDocument/" method="POST" class="add-form">
+            {%csrf_token%}
+            <label for="document_name" class="form-label">Document Name:</label>
+            <input type="text" name="document_name" class="form-control">
+            <label for="version" class="form-label">Version:</label>
+            <input type="text" name = version class="form-control">
+            <label for="desc" class="form-label">Description:</label>
+            <textarea name="desc" id="desc" cols="30" rows="10" class="form-control"></textarea>
+            <label for="status" class="form-label">Status: </label>
+            <input type="text" name="status" class="form-control">
+            <label for="file" class="form-label">File: </label>
+            <input type="file" name="file" class="form-control">
+            <input type="submit" value="Add Document" class="btn-addoc">
+        </form>
+    </div>
+{% endblock main %}
