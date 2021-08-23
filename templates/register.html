@@ -1,5 +1,8 @@
 {% extends 'index.html' %}
-{% block root %}
+{% block main %}
+<nav class="nav">
+    <h4>Cybersoft Document Management System</h4>
+</nav>
 <div class="login">
     <form action="/register" method="POST" class="login-form">
         {%csrf_token%}
@@ -15,4 +18,4 @@
         </div>
     </form>
 </div>
-{% endblock root %}
+{% endblock main %}

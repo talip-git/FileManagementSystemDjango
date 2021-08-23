@@ -1,24 +1,32 @@
 {% extends 'index.html' %}
 {% block main %}
+<nav class="nav">
+  <a href="/home">Home</a>
+  <h4>Cybersoft Document Management System</h4>
+  <a href="/logout" class="btn-add">Logout</a>
+</nav>
 <div class="sidebar">
   <ul id = "sidebar-list">
       <li>Cybersoft</li>
       <li>
-        <button type="button" class="btn-add" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Add New Fields
-        </button>
+        <a href="/addDocument" class="btn-add">Add New File</a>
       </li>
-      <li id="listItem1">
-        <div class="sidebar-inner-container" id="documentContainer1">
-          <div id="div">
-            First Documents >
-            <ul class="sidebar-inner-list" id="innerList1">
-              <li><a href="/home/hello">Hello</a></li>
-              <li>Second</li>
-            </ul>
+      {% for field in fields  %}
+        <li>
+          <div class="sidebar-inner-container">
+            <div id = "div">
+                {{field.field}} >
+                <ul class="sidebar-inner-list" id = "{{field.field}}">
+                {% for document in alldocuments %}
+                  {% if document.field == field.field %}
+                    <li ><a href = "/home/{{document.document_name}}">{{document.document_name}}</a></li>
+                  {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
+      {% endfor %}
   </ul>
 </div>
 {% block table %}

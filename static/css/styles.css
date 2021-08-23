@@ -7,17 +7,21 @@ a{
 }
 .root{
     display: flex;
+    justify-content: space-between;
 }
 .nav{
     background-color: rgb(14, 13, 13);
     padding: 20px;
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     text-transform: uppercase;
     word-spacing: 5px;
     letter-spacing: 3px;
+}
+.nav a{
+    color: white;
 }
 .sidebar{
     font-family: 'Atkinson Hyperlegible', sans-serif;

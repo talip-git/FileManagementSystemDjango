@@ -1,7 +1,12 @@
 {% extends 'home.html' %}
 {% block table %}
 <div class="document-table">
-    <button class="btn-document"><a href="/addDocument">Yeni Döküman</a></button>
+    <div>
+      <h6>Document Name: </h6> 
+      <p>{{document.document_name}}</p>
+      <h6>Document Desc: </h6>
+      <p>{{document.desc}}</p>
+    </div>
     <table class="table">
       <thead>
         <tr>
@@ -13,7 +18,7 @@
       <tbody>
         {% for document in documents %}
           <tr>
-            <td>{{document.version}}</td>
+            <td><a href="download/{{document.document_name}}/{{document.version}}">{{document.version}}</a></td>
             <td>{{document.change_date}}</td>
             <td>{{document.status}}</td>
           </tr>

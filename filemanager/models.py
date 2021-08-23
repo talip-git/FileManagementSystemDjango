@@ -8,6 +8,7 @@ class User(models.Model):
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=20)
     email = models.CharField(max_length=20)
+    isAdmin = models.BooleanField(default=False)
 
 class Document(models.Model):
     document_name = models.CharField(max_length=30,default='undefined')

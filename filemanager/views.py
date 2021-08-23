@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,FileResponse
 from .models import User,Document
-import json
+import base64
 # Create your views here.
 
 def index(request):
@@ -20,25 +20,33 @@ def register(request):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-        print(username,email,password)
         User.objects.create(username=username,email=email,password=password)
         return redirect('/')
     else:
         return render(request,'register.html')
 
 def home(request):
-    if(request.session['user']):
-        return render(request,'home.html')
-    else:
-        redirect('/')
+    if(request.session.get('user')):
 
-def specific_docfield(request,document_field):
-    if(request.session['user'] and document_field):
-        request.session['document_field']=document_field
-        documents = Document.objects.filter(field=document_field).values()
-        return render(request,'table.html',{'documents':documents})
+        fields = Document.objects.values('field').distinct().order_by('field')
+        alldocuments = Document.objects.values('document_name','field').distinct()
+
+        return render(request,'home.html',{'alldocuments':alldocuments,'fields':fields})
     else:
-        redirect('/')
+       return redirect('/')
+
+def specific_docfield(request,document_name):
+    if(request.session.get('user') and document_name):
+
+        documents = Document.objects.filter(document_name=document_name)
+        document = documents[0]
+
+        fields = Document.objects.values('field').distinct().order_by('field')
+        alldocuments = Document.objects.values('document_name','field').distinct()
+
+        return render(request,'table.html',{'alldocuments':alldocuments,'documents':documents,'fields':fields,'document':document})
+    else:
+        return redirect('/')
 def addDocument(request):
     if(request.method == "POST"):
         document_name = request.POST['document_name']
@@ -47,7 +55,19 @@ def addDocument(request):
         status = request.POST['status']
         file = request.POST['file']
         file = bytes(file,encoding='utf-8')
-        field = request.session['document_field']
+        field = request.POST['field']
         Document.objects.create(document_name=document_name,version=version,file=file,desc=desc,status=status,field=field)
         return redirect('/home')
-    return render(request,'addDocument.html') 
+    return render(request,'addDocument.html')
+
+def download(request,document_name,document_version):
+    if(request.session.get('user') and document_name and document_version):
+        file = Document.objects.filter(document_name=document_name,version=document_version).values('file')[0]
+        response = FileResponse(base64.decode(file['file']))
+        return response
+    else:
+        return redirect('/home')
+
+def logout(request):
+    request.session.pop('user')
+    return redirect('/') 
