@@ -1,3 +1,3 @@
 # File Management System With Django
 
-Document Management System made with django and mysql
+Document Management System made with Django and Mysql
