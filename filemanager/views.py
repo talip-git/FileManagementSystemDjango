@@ -1,7 +1,8 @@
+from django.db.models import base
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,FileResponse
 from .models import User,Document
-import base64
+from datetime import datetime
 # Create your views here.
 
 def index(request):
@@ -53,17 +54,20 @@ def addDocument(request):
         version = request.POST['version']
         desc = request.POST['desc']
         status = request.POST['status']
-        file = request.POST['file']
-        file = bytes(file,encoding='utf-8')
+        file = request.FILES['file']
         field = request.POST['field']
-        Document.objects.create(document_name=document_name,version=version,file=file,desc=desc,status=status,field=field)
+        doc = Document(document_name=document_name,version=version,file=file,desc=desc,status=status,field=field)
+        doc.save()
         return redirect('/home')
     return render(request,'addDocument.html')
 
+#Not working
 def download(request,document_name,document_version):
     if(request.session.get('user') and document_name and document_version):
         file = Document.objects.filter(document_name=document_name,version=document_version).values('file')[0]
-        response = FileResponse(base64.decode(file['file']))
+        file = file['file'].decode('utf-8')
+        response = FileResponse(file)
+        response['content-type'] = 'application/pdf'
         return response
     else:
         return redirect('/home')
